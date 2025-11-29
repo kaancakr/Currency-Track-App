@@ -3,10 +3,11 @@ import { API_CONFIG } from '@/lib/config';
 
 export async function GET(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
-    const response = await fetch(`${API_CONFIG.BACKEND_URL}/users/${params.id}`, {
+    const { id } = await params;
+    const response = await fetch(`${API_CONFIG.BACKEND_URL}/users/${id}`, {
       cache: 'no-store',
     });
     

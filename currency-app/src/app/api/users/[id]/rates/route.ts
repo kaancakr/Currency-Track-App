@@ -3,12 +3,13 @@ import { API_CONFIG } from '@/lib/config';
 
 export async function POST(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
+    const { id } = await params;
     const body = await request.json();
     
-    const response = await fetch(`${API_CONFIG.BACKEND_URL}/users/${params.id}/rates`, {
+    const response = await fetch(`${API_CONFIG.BACKEND_URL}/users/${id}/rates`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
