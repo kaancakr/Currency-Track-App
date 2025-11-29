@@ -3,10 +3,11 @@ import { API_CONFIG } from '@/lib/config';
 
 export async function DELETE(
   request: NextRequest,
-  { params }: { params: { id: string; favId: string } }
+  { params }: { params: Promise<{ id: string; favId: string }> }
 ) {
   try {
-    const response = await fetch(`${API_CONFIG.BACKEND_URL}/users/${params.id}/favorites/${params.favId}`, {
+    const { id, favId } = await params;
+    const response = await fetch(`${API_CONFIG.BACKEND_URL}/users/${id}/favorites/${favId}`, {
       method: 'DELETE',
     });
     

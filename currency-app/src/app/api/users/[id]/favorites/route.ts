@@ -3,10 +3,11 @@ import { API_CONFIG } from '@/lib/config';
 
 export async function GET(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
-    const response = await fetch(`${API_CONFIG.BACKEND_URL}/users/${params.id}/favorites`, {
+    const { id } = await params;
+    const response = await fetch(`${API_CONFIG.BACKEND_URL}/users/${id}/favorites`, {
       cache: 'no-store',
     });
     
@@ -30,12 +31,13 @@ export async function GET(
 
 export async function POST(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
+    const { id } = await params;
     const body = await request.json();
     
-    const response = await fetch(`${API_CONFIG.BACKEND_URL}/users/${params.id}/favorites`, {
+    const response = await fetch(`${API_CONFIG.BACKEND_URL}/users/${id}/favorites`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

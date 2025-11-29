@@ -3,10 +3,11 @@ import { API_CONFIG } from '@/lib/config';
 
 export async function DELETE(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
-    const response = await fetch(`${API_CONFIG.BACKEND_URL}/watchlist/${params.id}`, {
+    const { id } = await params;
+    const response = await fetch(`${API_CONFIG.BACKEND_URL}/watchlist/${id}`, {
       method: 'DELETE',
     });
     
