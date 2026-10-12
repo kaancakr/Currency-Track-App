@@ -80,7 +80,7 @@ cd currency-backend
 python -m venv .venv
 source .venv/bin/activate
 pip install -r requirements.txt
-# set the backend environment variables listed below
+cp .env.example .env   # then fill in the values (see below)
 python main.py
 ```
 
@@ -109,7 +109,7 @@ Only the names are listed here. Never commit real values.
 | --- | --- |
 | `NEXT_PUBLIC_BACKEND_API_URL` | Base URL of the Flask API, **including the `/api` prefix** (locally `http://localhost:5000/api`). The built-in fallback `http://localhost:5000` has no `/api`, so set this explicitly. |
 
-**Backend** (shell environment or `currency-backend/.env`, loaded by python-dotenv). The app fails at startup if a required variable is missing.
+**Backend** (shell environment or `currency-backend/.env`, loaded by python-dotenv; start from `currency-backend/.env.example`, and `.env` is gitignored). The app fails at startup if a required variable is missing.
 
 | Name | Purpose |
 | --- | --- |
